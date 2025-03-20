@@ -62,7 +62,7 @@ resource "azurerm_network_interface_security_group_association" "nsg-assoc" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "ubuntu24-vm"
+  name                = "ubuntu-vm"
   resource_group_name = azurerm_resource_group.azure-test.name
   location            = azurerm_resource_group.azure-test.location
   size                = "Standard_B1s"
@@ -81,8 +81,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
     source_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server"
     version   = "latest"
   }
 }
