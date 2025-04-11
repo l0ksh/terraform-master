@@ -65,7 +65,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "ubuntu-vm"
   resource_group_name = azurerm_resource_group.azure-test.name
   location            = azurerm_resource_group.azure-test.location
-  size                = "Standard_B1s"
+  size                = "Standard_F4ams_v6"
   admin_username      = var.admin_username
   admin_password      = var.admin_password
   disable_password_authentication = false
@@ -87,3 +87,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
+data "azurerm_public_ip" "vm_public_ip" {
+  name                = azurerm_public_ip.public_ip.name
+  resource_group_name = azurerm_linux_virtual_machine.vm.resource_group_name
+}
+output "public_ip_address" {
+  description = "The public IP address of the virtual machine"
+  value       = data.azurerm_public_ip.vm_public_ip.ip_address
+}
